@@ -1,0 +1,72 @@
+name: Release kcc binary
+
+on:
+  push:
+    tags:
+      - 'v*'   # triggers on: git tag v0.2.0 && git push --tags
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc binutils
+
+      - name: Build C bootstrap (kcc-c)
+        run: |
+          gcc -Wall -Wextra -O2 -std=c11 \
+            src/main.c src/lexer.c src/parser.c src/typecheck.c src/codegen.c \
+            -o kcc-c
+
+      - name: Build self-hosted kcc
+        run: |
+          ./kcc-c -ffocus self/kcc.k -bo kcc
+          strip kcc
+
+      - name: Verify bootstrap
+        run: |
+          ./kcc --version
+          ./kcc -ffocus self/kcc.k -bo /tmp/kcc_s2
+          ./kcc -ffocus self/kcc.k -bo /tmp/kcc_s3
+          cmp /tmp/kcc_s2 /tmp/kcc_s3
+          echo "Bootstrap fixed point OK"
+
+      - name: Create release archive
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          mkdir -p dist/klang-${TAG}-linux-x86_64
+          cp kcc dist/klang-${TAG}-linux-x86_64/
+          cp README.md dist/klang-${TAG}-linux-x86_64/
+          cp -r examples dist/klang-${TAG}-linux-x86_64/
+          tar -czf klang-${TAG}-linux-x86_64.tar.gz -C dist klang-${TAG}-linux-x86_64
+          echo "ARCHIVE=klang-${TAG}-linux-x86_64.tar.gz" >> $GITHUB_ENV
+          echo "TAG=${TAG}" >> $GITHUB_ENV
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "K Language ${{ env.TAG }}"
+          body: |
+            ## K Language ${{ env.TAG }}
+
+            ### Install
+            ```bash
+            tar -xzf klang-${{ env.TAG }}-linux-x86_64.tar.gz
+            chmod +x klang-${{ env.TAG }}-linux-x86_64/kcc
+            mv klang-${{ env.TAG }}-linux-x86_64/kcc ~/.local/bin/kcc
+            kcc --version
+            ```
+
+            ### What's included
+            - `kcc` — the K compiler binary (x86-64 Linux)
+            - `examples/` — example K programs
+            - `README.md` — language reference
+          files: ${{ env.ARCHIVE }}
+          draft: false
+          prerelease: false

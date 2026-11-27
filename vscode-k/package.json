@@ -1,0 +1,54 @@
+{
+  "name": "k-lang",
+  "displayName": "K Language",
+  "description": "Syntax highlighting, snippets, comments, and custom icons for the K programming language (.k, .kl).",
+  "version": "0.1.0",
+  "publisher": "klang",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "k",
+        "aliases": [
+          "K",
+          "Klang"
+        ],
+        "extensions": [
+          ".k",
+          ".kl"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/k-file.svg",
+          "dark": "./icons/k-file.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "k",
+        "scopeName": "source.k",
+        "path": "./syntaxes/k.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "k",
+        "path": "./snippets/k.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "k-file-icons",
+        "label": "K File Icons",
+        "path": "./icons/k-icon-theme.json"
+      }
+    ]
+  }
+}

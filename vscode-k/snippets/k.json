@@ -1,0 +1,87 @@
+{
+  "Entry Point": {
+    "prefix": "entry",
+    "body": [
+      "\\$unpack-> <Safe>;",
+      "\\$entry-> <${1:main}>;",
+      "",
+      "init::exec ${1:main}[safe::nul] -> i32 {",
+      "\t$0",
+      "\tret 0;",
+      "}"
+    ],
+    "description": "K program entry template"
+  },
+  "Function": {
+    "prefix": "exec",
+    "body": [
+      "init::exec ${1:name}[${2:safe::nul}] -> ${3:void} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Define a K function with init::exec"
+  },
+  "ISR Handler": {
+    "prefix": "isr",
+    "body": [
+      "init::isr ${1:handler}[safe::nul] -> void {",
+      "\t$0",
+      "\tret;",
+      "}"
+    ],
+    "description": "Define a kernel interrupt service routine"
+  },
+  "Print": {
+    "prefix": "print",
+    "body": [
+      "safe::print[\"${1:%d}\\n\", ${2:val}];"
+    ],
+    "description": "Print using safe::print"
+  },
+  "Ifd": {
+    "prefix": "ifd",
+    "body": [
+      "ifd (${1:cond})>>do {",
+      "\t$0",
+      "}"
+    ],
+    "description": "K ifd conditional block"
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "for (def ${1:i}: mut, i64 = 0; ${1:i} < ${2:10}; ${1:i}++)>>do {",
+      "\t$0",
+      "}"
+    ],
+    "description": "K for loop"
+  },
+  "While Loop": {
+    "prefix": "while",
+    "body": [
+      "while (${1:cond})>>do {",
+      "\t$0",
+      "}"
+    ],
+    "description": "K while loop"
+  },
+  "Class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:Name} {",
+      "\t${2:field}: ${3:i64};",
+      "}"
+    ],
+    "description": "Define a K struct/class"
+  },
+  "Enum": {
+    "prefix": "enum",
+    "body": [
+      "list::enum ${1:Name} {",
+      "\t${2:Item1},",
+      "\t${3:Item2}",
+      "};"
+    ],
+    "description": "Define a K enum"
+  }
+}
