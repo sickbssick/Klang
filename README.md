@@ -6,6 +6,15 @@
 
 ---
 
+## Recomandation
+
+``` Observation
+   ~ Use Linux for better expirience and larger eco system!
+   ~ Windows implementation is still in progress..
+   ~ Mac OS is not in our visor right now!
+   -- To get the leteast patches always check the README!
+``` 
+
 ## Comments
 
 ``` k
