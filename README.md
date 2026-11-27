@@ -6,10 +6,25 @@
 
 ---
 
+## Contact Me
+   ``` Contacts
+      discord: sick666xd,
+      mail: sickbssick@gmail.com
+   ```
+## About
+   **K** is built first on C, after was rebuild it K itself!
+   ``` Purpose
+      K is supposed to be used for low level programming
+      Having built in features like volatile, inb, outb, inline assembly
+      K is yet in development, with little to no lib's!
+      If experincing bugs or errors, check out the Contact section!
+```
+
+   
 ## Recomandation
 
 ``` Observation
-   ~ Use Linux for better expirience and larger eco system!
+   ~ Use Linux for better experience and larger eco system!
    ~ Windows implementation is still in progress..
    ~ Mac OS is not in our visor right now!
    -- To get the leteast patches always check the README!
@@ -192,5 +207,8 @@ See [`examples/uefi/`](examples/uefi/) for a full UEFI bootable kernel.
 ---
 
 ## License
+``` Important!
+Proprietary. Binary distributed, only C source is visible (Old Compiler)
+K source is not visible. (New Compiler)
+```
 
-Proprietary. Binary use permitted. Source not distributed.
