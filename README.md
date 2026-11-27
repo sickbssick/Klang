@@ -148,6 +148,13 @@ kcc -kernel -ffocus -T linker.ld kernel.k -o kernel.elf
 See [`examples/uefi/`](examples/uefi/) for a full UEFI bootable kernel.
 
 ---
+## Libraries
+
+- $unpack-> <vgahelp.kl>; # imports helping functions for VGA text mode
+- $unpack-> <xlib.kl>; # x11 library import ! LINUX ONLY !
+- $unpack-> <deftype.kl>; # default types
+
+- Make your own libraries !
 
 ## Examples
 
