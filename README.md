@@ -12,7 +12,7 @@
 $unpack-> <Safe>;
 $entry-> <main>;
 
-init::exec main[safe::nul] -> void {
+init::exec main[safe::nul] -> i32 {
     ;; This is a commment
     ;; This is where your code goes..
 
