@@ -6,6 +6,20 @@
 
 ---
 
+## Comments
+
+``` k
+$unpack-> <Safe>;
+$entry-> <main>;
+
+init::exec main[safe::nul] -> void {
+    ;; This is a commment
+    ;; This is where your code goes..
+
+    ret 0;
+}
+```
+
 ## Install
 
 Download the latest `kcc` binary from the [Releases](../../releases) page and put it in your PATH:
@@ -148,13 +162,7 @@ kcc -kernel -ffocus -T linker.ld kernel.k -o kernel.elf
 See [`examples/uefi/`](examples/uefi/) for a full UEFI bootable kernel.
 
 ---
-## Libraries
 
-- $unpack-> <vgahelp.kl>; # imports helping functions for VGA text mode
-- $unpack-> <xlib.kl>; # x11 library import ! LINUX ONLY !
-- $unpack-> <deftype.kl>; # default types
-
-- Make your own libraries !
 
 ## Examples
 
