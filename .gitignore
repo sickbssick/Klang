@@ -19,3 +19,4 @@ examples/kernel/*.elf
 main
 test
 testx
+*.o
