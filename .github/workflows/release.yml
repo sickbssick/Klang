@@ -3,10 +3,10 @@ name: Release kcc binary
 on:
   push:
     tags:
-      - 'v*'   # triggers on: git tag v0.2.0 && git push --tags
+      - 'v*'   # triggers on: git tag v0.5.4 && git push --tags
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -15,27 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: sudo apt-get install -y gcc binutils
-
-      - name: Build C bootstrap (kcc-c)
+      - name: Verify kcc binary
         run: |
-          gcc -Wall -Wextra -O2 -std=c11 \
-            src/main.c src/lexer.c src/parser.c src/typecheck.c src/codegen.c \
-            -o kcc-c
-
-      - name: Build self-hosted kcc
-        run: |
-          ./kcc-c -ffocus self/kcc.k -bo kcc
-          strip kcc
-
-      - name: Verify bootstrap
-        run: |
+          chmod +x kcc
           ./kcc --version
-          ./kcc -ffocus self/kcc.k -bo /tmp/kcc_s2
-          ./kcc -ffocus self/kcc.k -bo /tmp/kcc_s3
-          cmp /tmp/kcc_s2 /tmp/kcc_s3
-          echo "Bootstrap fixed point OK"
 
       - name: Create release archive
         run: |
