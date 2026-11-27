@@ -14,7 +14,7 @@ Download the latest `kcc` binary from the [Releases](../../releases) page and pu
 # Linux x86-64
 chmod +x kcc
 mv kcc ~/.local/bin/kcc
-kcc --version
+kcc --version   # kcc 0.5.4 (K self-hosted, x86_64-linux)
 ```
 
 ---
