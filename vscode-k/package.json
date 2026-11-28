@@ -20,13 +20,27 @@
           "Klang"
         ],
         "extensions": [
-          ".k",
-          ".kl"
+          ".k"
         ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/k-file.svg",
           "dark": "./icons/k-file.svg"
+        }
+      },
+      {
+        "id": "kl",
+        "aliases": [
+          "KL",
+          "K Library"
+        ],
+        "extensions": [
+          ".kl"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/kl-file.svg",
+          "dark": "./icons/kl-file.svg"
         }
       }
     ],
@@ -35,11 +49,20 @@
         "language": "k",
         "scopeName": "source.k",
         "path": "./syntaxes/k.tmLanguage.json"
+      },
+      {
+        "language": "kl",
+        "scopeName": "source.k",
+        "path": "./syntaxes/k.tmLanguage.json"
       }
     ],
     "snippets": [
       {
         "language": "k",
+        "path": "./snippets/k.json"
+      },
+      {
+        "language": "kl",
         "path": "./snippets/k.json"
       }
     ],
