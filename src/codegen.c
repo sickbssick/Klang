@@ -9,8 +9,8 @@ typedef struct {
     KType type;
     bool is_mut;
     bool is_global;
-    int offset;    /* negative rbp offset if on stack */
-    int reg_idx;   /* 0..4 => callee-saved reg, -1 => stack/global */
+    int offset;    
+   int reg_idx;   
 } VarSym;
 
 typedef struct {
