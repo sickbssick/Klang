@@ -1,5 +1,6 @@
 
 self/
+vscode-k/
 *.o
 *.s
 kcc-c

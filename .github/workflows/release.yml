@@ -17,7 +17,7 @@ jobs:
 
       - name: Verify kcc binaries
         run: |
-          chmod +x kcc kcc.AppImage
+          chmod +x kcc
           ./kcc --version
           file kcc.exe
 
@@ -34,7 +34,6 @@ jobs:
           cp -r examples dist/klang-${TAG}-windows-x86_64/
           (cd dist && zip -r ../klang-${TAG}-windows-x86_64.zip klang-${TAG}-windows-x86_64)
 
-          cp kcc.AppImage kcc-${TAG}-x86_64.AppImage
           cp kcc.exe kcc-${TAG}-windows-x86_64.exe
           echo "TAG=${TAG}" >> $GITHUB_ENV
 
@@ -46,15 +45,13 @@ jobs:
             ## K Language ${{ env.TAG }}
 
             ### Linux
-            - Download `kcc-${{ env.TAG }}-x86_64.AppImage` (`chmod +x` and run), or extract `klang-${{ env.TAG }}-linux-x86_64.tar.gz`.
+            - Extract `klang-${{ env.TAG }}-linux-x86_64.tar.gz` and run `kcc`.
 
             ### Windows
             - Download `kcc-${{ env.TAG }}-windows-x86_64.exe` (or `klang-${{ env.TAG }}-windows-x86_64.zip`).
           files: |
             klang-${{ env.TAG }}-linux-x86_64.tar.gz
             klang-${{ env.TAG }}-windows-x86_64.zip
-            kcc-${{ env.TAG }}-x86_64.AppImage
             kcc-${{ env.TAG }}-windows-x86_64.exe
-            vscode-k/k-lang-0.1.0.vsix
           draft: false
           prerelease: false
