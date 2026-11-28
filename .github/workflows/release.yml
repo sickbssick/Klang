@@ -1,9 +1,9 @@
-name: Release kcc binary
+name: Release kcc binaries
 
 on:
   push:
     tags:
-      - 'v*'   # triggers on: git tag v0.5.4 && git push --tags
+      - 'v*'   # triggers on: git tag v0.5.45 && git push --tags
 
 jobs:
   release:
@@ -15,20 +15,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Verify kcc binary
+      - name: Verify kcc binaries
         run: |
-          chmod +x kcc
+          chmod +x kcc kcc.AppImage
           ./kcc --version
+          file kcc.exe
 
-      - name: Create release archive
+      - name: Create release archives
         run: |
           TAG=${GITHUB_REF#refs/tags/}
           mkdir -p dist/klang-${TAG}-linux-x86_64
-          cp kcc dist/klang-${TAG}-linux-x86_64/
-          cp README.md dist/klang-${TAG}-linux-x86_64/
+          cp kcc README.md dist/klang-${TAG}-linux-x86_64/
           cp -r examples dist/klang-${TAG}-linux-x86_64/
           tar -czf klang-${TAG}-linux-x86_64.tar.gz -C dist klang-${TAG}-linux-x86_64
-          echo "ARCHIVE=klang-${TAG}-linux-x86_64.tar.gz" >> $GITHUB_ENV
+
+          mkdir -p dist/klang-${TAG}-windows-x86_64
+          cp kcc.exe README.md dist/klang-${TAG}-windows-x86_64/
+          cp -r examples dist/klang-${TAG}-windows-x86_64/
+          (cd dist && zip -r ../klang-${TAG}-windows-x86_64.zip klang-${TAG}-windows-x86_64)
+
+          cp kcc.AppImage kcc-${TAG}-x86_64.AppImage
+          cp kcc.exe kcc-${TAG}-windows-x86_64.exe
           echo "TAG=${TAG}" >> $GITHUB_ENV
 
       - name: Upload release
@@ -38,18 +45,16 @@ jobs:
           body: |
             ## K Language ${{ env.TAG }}
 
-            ### Install
-            ```bash
-            tar -xzf klang-${{ env.TAG }}-linux-x86_64.tar.gz
-            chmod +x klang-${{ env.TAG }}-linux-x86_64/kcc
-            mv klang-${{ env.TAG }}-linux-x86_64/kcc ~/.local/bin/kcc
-            kcc --version
-            ```
+            ### Linux
+            - Download `kcc-${{ env.TAG }}-x86_64.AppImage` (`chmod +x` and run), or extract `klang-${{ env.TAG }}-linux-x86_64.tar.gz`.
 
-            ### What's included
-            - `kcc` — the K compiler binary (x86-64 Linux)
-            - `examples/` — example K programs
-            - `README.md` — language reference
-          files: ${{ env.ARCHIVE }}
+            ### Windows
+            - Download `kcc-${{ env.TAG }}-windows-x86_64.exe` (or `klang-${{ env.TAG }}-windows-x86_64.zip`).
+          files: |
+            klang-${{ env.TAG }}-linux-x86_64.tar.gz
+            klang-${{ env.TAG }}-windows-x86_64.zip
+            kcc-${{ env.TAG }}-x86_64.AppImage
+            kcc-${{ env.TAG }}-windows-x86_64.exe
+            vscode-k/k-lang-0.1.0.vsix
           draft: false
           prerelease: false
