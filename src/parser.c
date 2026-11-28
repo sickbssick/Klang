@@ -1,4 +1,4 @@
-/* parser.c — AST parser for the K language bootstrap compiler */
+
 #include "kcc.h"
 
 typedef struct Parser {
